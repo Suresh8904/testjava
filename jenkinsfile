@@ -3,18 +3,25 @@ pipeline {
     tools {
         maven 'Maven'
     }
-    stages('Build') {
-        steps{
-            sh 'mvn clean install'
+    stages{
+        stage('Checkout'){
+            steps{
+                git branch: 'main', url:'https://github.com/Suresh8904/Java-application.git'
+            }
         }
-    }stages('Test'){
-        steps {
-            sh 'mvn test'
+        stage('Build'){
+            steps{
+                sh 'mvn clean install'
+            }     
         }
-
-    }stages('Deploy'){
-        steps{
-            echo 'Deploying the application'
+        stage('Test'){
+            steps {
+                sh 'mvn test'
+        }
+    }
+        stage('Deploy'){
+             steps{
+                echo 'Deploying the application'
         }
     }
 }
